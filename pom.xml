@@ -87,6 +87,27 @@
 			</plugin>
 			
 			<plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>jaxb2-maven-plugin</artifactId>
+            <version>2.4</version>
+            <executions>
+                <execution>
+                    <id>xjc-message-types</id>
+                    <goals>
+                        <goal>xjc</goal>
+                    </goals>
+                    <configuration>
+		                <sources>
+		                	<source>${project.basedir}/src/main/resources/wsspec/ssu-ws/spec/types/MessageTypes.xsd</source>
+		                </sources>
+		            </configuration>
+                </execution>
+            </executions>
+        </plugin>
+			
+			
+			
+			<plugin>
 		    <groupId>org.apache.cxf</groupId>
 		    <artifactId>cxf-codegen-plugin</artifactId>
 		    <version>${cxf.version}</version>
@@ -100,8 +121,35 @@
 		                    <wsdlOption>
 		                        <wsdl>${project.basedir}/src/main/resources/wsspec/ssu-ws/spec/service/bo/back-office-ws.wsdl</wsdl>
 		                        <wsdlLocation>classpath:wsspec/ssu-ws/spec/service/bo/back-office-ws.wsdl</wsdlLocation>
+		                   		<faultSerialVersionUID>1</faultSerialVersionUID>
+		                   		<namespaceExcludes>
+		                    		<namespaceExclude>http://www.agid.gov.it/ssu/ws/message/types</namespaceExclude>
+		                    	</namespaceExcludes>
 		                    </wsdlOption>
 		                </wsdlOptions>
+		                
+		            </configuration>
+		            <goals>
+		                <goal>wsdl2java</goal>
+		            </goals>
+		        </execution>
+		        
+		        <execution>
+		            <id>generate-ws-et</id>
+		            <phase>generate-sources</phase>
+		            <configuration>
+		                <sourceRoot>${project.build.directory}/generated/ws/et</sourceRoot>
+		                <wsdlOptions>
+		                    <wsdlOption>
+		                        <wsdl>${project.basedir}/src/main/resources/wsspec/ssu-ws/spec/service/et/ente-terzo-ws.wsdl</wsdl>
+		                        <wsdlLocation>classpath:wsspec/ssu-ws/spec/service/et/ente-terzo-ws.wsdl</wsdlLocation>
+		                    	<faultSerialVersionUID>1</faultSerialVersionUID>
+		                    	<namespaceExcludes>
+		                    		<namespaceExclude>http://www.agid.gov.it/ssu/ws/message/types</namespaceExclude>
+		                    	</namespaceExcludes>
+		                    </wsdlOption>
+		                </wsdlOptions>
+		                
 		            </configuration>
 		            <goals>
 		                <goal>wsdl2java</goal>
