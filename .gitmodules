@@ -1,0 +1,3 @@
+[submodule "src/main/resources/wsspec/ssu-ws"]
+	path = src/main/resources/wsspec/ssu-ws
+	url = https://github.com/giacomo83/ssu-ws.git
